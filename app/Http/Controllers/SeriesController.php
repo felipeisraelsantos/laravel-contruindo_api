@@ -64,9 +64,9 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Serie $series)
     {
-        //
+        return view('series.edit')->with('serie', $series);
     }
 
     /**
@@ -76,9 +76,13 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Serie $series)
     {
-        //
+        $series->fill($request->all());
+        $series->save();
+
+        return redirect()->route('series.index')
+            ->with('mensagem.sucesso', "Série {$series->nome} atualizada com sucesso");
     }
 
     /**
