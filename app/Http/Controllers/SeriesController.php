@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SeriesFormRequest;
 use App\Models\Serie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,8 +40,9 @@ class SeriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SeriesFormRequest $request)
     {
+
        $serie = Serie::create($request->all());
        $request->session()->flash('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
 
@@ -76,7 +78,7 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Serie $series)
+    public function update(SeriesFormRequest $request, Serie $series)
     {
         $series->fill($request->all());
         $series->save();
