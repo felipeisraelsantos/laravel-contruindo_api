@@ -16,8 +16,11 @@ class SeriesController extends Controller
     public function index( Request $request)
     {
         $series = Serie::all();
+        $msgSuccess = $request->session()->get('mensagem.sucesso');
 
-        return view('series.index')->with('series', $series);
+        return view('series.index')
+            ->with('series', $series)
+            ->with('msgSuccess', $msgSuccess);
     }
 
     /**
@@ -38,7 +41,9 @@ class SeriesController extends Controller
      */
     public function store(Request $request)
     {
-       Serie::create($request->all());
+       $serie = Serie::create($request->all());
+       $request->session()->flash('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
+
        return redirect()->route('series.index');
     }
 
@@ -82,8 +87,11 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Serie $series)
     {
-        //
+        $series->delete();
+
+        return redirect()->route('series.index')
+            ->with('mensagem.sucesso', "Série {$series->nome} removida com sucesso");
     }
 }
