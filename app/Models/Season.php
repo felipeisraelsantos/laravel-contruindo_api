@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Season extends Model
 {
     use HasFactory;
+    protected $fillabe = ['number'];
 
     public function series()
     {

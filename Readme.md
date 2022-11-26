@@ -132,3 +132,9 @@ Caso seja necessário recriar as tabelas com com seus relacionamentos use o coma
 ~~~
 php artisan migrate:fresh
 ~~~
+
+Este é um pacote para integrar PHP Debug Bar com Laravel. Ele inclui um ServiceProvider para registrar a barra de depuração e anexá-la à saída.
+
+~~~
+composer require barryvdh/laravel-debugbar --dev
+~~~
