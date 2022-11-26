@@ -120,3 +120,9 @@ Para criar uma model use o comando
 ~~~
 php artisan make:model NOMEDAMODEL
 ~~~
+
+Caso passe o parâmetro -m (migration) já é criado a migration da model
+
+~~~
+php artisan make:model NOMEDAMODEL -m
+~~~

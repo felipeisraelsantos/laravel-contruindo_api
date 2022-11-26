@@ -16,7 +16,7 @@ class SeriesController extends Controller
      */
     public function index( Request $request)
     {
-        $series = Serie::all();
+        $series = Serie::with(['temporadas'])->get();
         $msgSuccess = $request->session()->get('mensagem.sucesso');
 
         return view('series.index')
