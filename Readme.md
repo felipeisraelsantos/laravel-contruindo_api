@@ -126,3 +126,9 @@ Caso passe o parâmetro -m (migration) já é criado a migration da model
 ~~~
 php artisan make:model NOMEDAMODEL -m
 ~~~
+
+Caso seja necessário recriar as tabelas com com seus relacionamentos use o comando (apaga e recria ntodas a s tabelas)
+
+~~~
+php artisan migrate:fresh
+~~~
