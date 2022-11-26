@@ -138,3 +138,9 @@ Este é um pacote para integrar PHP Debug Bar com Laravel. Ele inclui um Service
 ~~~
 composer require barryvdh/laravel-debugbar --dev
 ~~~
+
+O service container que vai analisar o que precisamos e entregar. Ele cria para nós e injeta, seja no construtor ou em cada uma das ações ao longo do código. Ele que cria o request, qualquer dependência, etc. O service container que permite a injeção de dependência, contudo, além disso, no Laravel temos o service providers.
+
+~~~
+php artisan make:provider SeriesRepositoryProvider
+~~~
