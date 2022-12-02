@@ -1,25 +1,22 @@
-<x-layout title="Episódeos" >
+<x-layout title="Episódeos">
 
-@isset($msgSuccess)
-        <div class="alert alert-success">
-            {{$msgSuccess}}
-        </div>
-        @endisset
+    @isset($msgSuccess)
+    <div class="alert alert-success">
+        {{$msgSuccess}}
+    </div>
+    @endisset
 
-<form action="" method="post">
-@csrf
-    <ul class="list-group">
-        @foreach ($episodes as $episode)
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+    <form action="" method="post">
+        @csrf
+        <ul class="list-group">
+            @foreach ($episodes as $episode)
+            <li class="list-group-item d-flex justify-content-between align-items-center">
                 Episódeo {{ $episode->number }}
-            <input type="checkbox"
-                name="episodes[]" 
-                value="{{ $episode->id }}" 
-                @if ($episode->watched) checked @endif />
-        </li>
-        @endforeach
-    </ul>
+                <input type="checkbox" name="episodes[]" value="{{ $episode->id }}" @if ($episode->watched) checked @endif />
+            </li>
+            @endforeach
+        </ul>
 
-    <button class="btn btn-primary mt-2 mb-2">Salvar</button>
+        <button class="btn btn-primary mt-2 mb-2">Salvar</button>
     </form>
 </x-layout>

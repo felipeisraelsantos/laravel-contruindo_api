@@ -144,3 +144,9 @@ O service container que vai analisar o que precisamos e entregar. Ele cria para 
 ~~~
 php artisan make:provider SeriesRepositoryProvider
 ~~~
+
+- Criando Atenticação com middleware
+
+~~~
+php artisan make:middleware [NomeDoMiddleware]
+~~~
