@@ -13,9 +13,12 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a href="{{('series.index')}}" class="navbar-brand">Home</a>
+        <a href="{{route('series.index')}}" class="navbar-brand">Home</a>
         @auth
-            <a href="{{('logout')}}">Sair</a>
+        <form action="{{('logout')}}">
+            @csrf
+            <button class="btn btn-link">Sair</button>
+        </form>
         @endauth
 
         @guest

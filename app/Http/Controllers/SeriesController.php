@@ -15,7 +15,7 @@ class SeriesController extends Controller
     public function __construct ( SeriesRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware(Autenticador::class)->except('index');
+        $this->middleware('auth')->except('index');
     }
 
     /**
