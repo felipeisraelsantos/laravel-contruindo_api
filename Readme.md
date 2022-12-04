@@ -150,3 +150,38 @@ php artisan make:provider SeriesRepositoryProvider
 ~~~
 php artisan make:middleware [NomeDoMiddleware]
 ~~~
+
+- Criando Envio de e-mail
+
+~~~
+php artisan make:mail SeriesCreated
+~~~
+
+- Se no projeto olharmos as migrations em "database > migrations", por padrão, o Laravel já nos trouxe uma tabela de failed jobs, podemos analisar depois, mas, repare que não criou a tabela de jobs, assim, vamos executar no terminal o comando queue:table.
+
+~~~
+php artisan queue:table
+~~~
+
+- Então, se no terminal rodarmos php artisan temos duas formas: 
+    - uma delas é o *`queue:listen`* 
+    - e a outra o *` queue:work`*
+    
+ambas são semelhantes, mas, por regra, em produção, utilizamos o **queue:work**, que pega todo o código Laravel e insere em memória, inicia a aplicação uma única vez e fica ouvindo todas as tarefas que vão entrando na fila, ou seja, se em algum momento for alterado o código e gerar uma tarefa esse work que vai estar rodando, não pega o código atualizado, então, em tempo de desenvolvimento é comum usar o listen.
+
+Em desenvolvimento usamos o **queue:listen** visto que sempre que chega uma nova tarefa o Laravel é inicializado e o **queue:work** é usado em produção por ser mais rápido, ele inicializa o Laravel uma vez só. Por estarmos habituado vou usar sempre o work.
+
+No terminal vamos rodar o php artisan **queue:work** e, com isso, vai começar a processar os jobs, está enviando e falhou no sexto, o motivo já sabemos, o mailtrap tem o limite de cinco e-mails a cada dez segundos.
+
+
+~~~
+php artisan queue:work 
+~~~
+
+No terminal vamos rodar o **`php artisan queue:listen --tries=2`** para não precisar ter que ficar encerrando o worker e subindo novamente. 
+
+Rode o comando **`php artisan make:listener EmailUsersAboutSeriesCreated`**, o EmailUsersAboutSeriesCreated é o nome da classe que vamos criar que vai ser o ouvinte de evento, isto é, vai receber o evento e executar alguma coisa.
+
+~~~
+php artisan make:listener [nomedolistener]
+~~~
