@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SeriesCreatedEvent;
 use App\Http\Middleware\Autenticador;
 use App\Http\Requests\SeriesFormRequest;
 use App\Mail\SeriesCreated;
@@ -57,21 +58,17 @@ class SeriesController extends Controller
     {
         $serie = $this->repository->add($request);
 
-        $usuarioList = User::all();
-        foreach ($usuarioList as $index => $user) {
-            $email = new SeriesCreated(
-                $serie->nome,
-                $serie->id,
-                $request->seasonsQty,
-                $request->episodesPerSeason
-            );
-            $when = now()->addSecond($index * 2);
-            Mail::to($user)->later($when, $email);
-        }
+        $seriesCreatedEvent = new SeriesCreatedEvent(
+            $serie->nome,
+            $serie->id,
+            $request->seasonsQty,
+            $request->episodesPerSeason
+        );
+        event($seriesCreatedEvent);
 
-       $request->session()->flash('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
+        $request->session()->flash('mensagem.sucesso', "Série {$serie->nome} adicionada com sucesso");
 
-       return redirect()->route('series.index');
+        return redirect()->route('series.index');
     }
 
     /**
