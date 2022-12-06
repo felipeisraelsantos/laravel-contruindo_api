@@ -191,3 +191,26 @@ php artisan make:listener [nomedolistener]
 ~~~
 php artisan make:event [nomedoEvento]
 ~~~
+
+Vamos utilizar um service provider que o próprio Laravel possui por padrão em *`"app > Providers > EventServiceProvider"`*, o *`EventServiceProvider`* contém uma propriedade chamada listen, o mapeamento de eventos para os seus listeners, então, repare que o pacote de autenticação que adicionamos já possui um evento listener, quando um usuário é registrado, *Registered::class =>*, ele envia um e-mail de notificação: *SendEmailVerificationNotification::class,*.
+
+```
+protected $listen = [
+    Registered::class => [
+        SendEmailVerificationNotification::class,
+    ],
+    SeriesCreatedEvent::class => [
+        EmailUsersAboutSeriesCreated::class,
+    ],
+];
+```
+
+Quando adicionado no *`listen`* o mapeamento de *`SeriesCreatedEvent`* que é o evento, importado do namespace correto que vai possuir apenas um listener, por enquanto, o *`EmailUsersAboutSeriesCreated`*. Com isso, o Laravel vai saber que sempre que a série for criada, o _listener_ *`EmailUsersAboutSeriesCreated`* vai ser executado.
+
+Vamos criar um novo listener, rode o comando
+
+```
+php artisan make:listener LogSeriesCreated -e SeriesCreatedEvent
+```
+
+php artisan make:listener LogSeriesCreated, vai realizar o log de uma série criada e podemos passar um parâmetro -e informando qual evento esse listener vai ouvir, no caso SeriesCreated.
