@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Events\SeriesCreatedEvent;
-use App\Http\Middleware\Autenticador;
 use App\Http\Requests\SeriesFormRequest;
-use App\Mail\SeriesCreated;
 use App\Models\Series;
-use App\Models\User;
 use App\Repositories\SeriesRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class SeriesController extends Controller
 {
@@ -120,6 +117,9 @@ class SeriesController extends Controller
      */
     public function destroy(Series $series)
     {
+        if ($series->cover) {
+            Storage::disk('public')->delete("{$series->cover}");
+        }
         $series->delete();
 
         return redirect()->route('series.index')
