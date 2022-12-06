@@ -185,3 +185,9 @@ Rode o comando **`php artisan make:listener EmailUsersAboutSeriesCreated`**, o E
 ~~~
 php artisan make:listener [nomedolistener]
 ~~~
+
+- Criando um evento
+
+~~~
+php artisan make:event [nomedoEvento]
+~~~
