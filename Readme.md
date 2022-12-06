@@ -214,3 +214,9 @@ php artisan make:listener LogSeriesCreated -e SeriesCreatedEvent
 ```
 
 php artisan make:listener LogSeriesCreated, vai realizar o log de uma série criada e podemos passar um parâmetro -e informando qual evento esse listener vai ouvir, no caso SeriesCreated.
+
+- Criando link simbolico para imagem
+
+```
+php artisan storage:link
+```
