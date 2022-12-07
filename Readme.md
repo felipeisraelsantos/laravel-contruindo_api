@@ -220,3 +220,9 @@ php artisan make:listener LogSeriesCreated, vai realizar o log de uma série cri
 ```
 php artisan storage:link
 ```
+
+- Criando testes
+
+```
+php artisan make:test SeriesRepositoryTest
+```
