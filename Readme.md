@@ -226,3 +226,16 @@ php artisan storage:link
 ```
 php artisan make:test SeriesRepositoryTest
 ```
+
+- Construindo api
+
+As rotas de api são definadas em *`routes/api.php`* não é necessário atribuir o *`api/..`* o lravel já entende que as rotas desse arquivo já fazem parte da api e com iso atribui o api a rota
+
+    - exemplo
+    http://localhost:8000/api/rota
+
+fica assim em 
+
+*`routes/api.php`* 
+
+Route::get('/rota',[Controller::class, 'index']);
