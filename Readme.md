@@ -239,3 +239,23 @@ fica assim em
 *`routes/api.php`* 
 
 Route::get('/rota',[Controller::class, 'index']);
+
+- Atenticação
+
+
+A autenticação é para identificar um usuário, autorização é para permitir que usuário, conhecido ou não, faça alguma tarefa. Por exemplo, eu só quero permitir que removam séries usuários administradores ou algo assim.
+
+Se ele for administrador, eu posso adicionar uma habilidade a mais nesse token, nós temos um array de abilities. Eu posso informar, por exemplo, que esse usuário, ele pode 
+*`$token = $user->createToken(name: 'token', ['series:delete'])`*
+Eu posso dar qualquer nome aqui, pode ser ['pode_remover_series'], mas é um bom padrão termos um recurso que será manipulado, dois pontos e a operação.
+
+Se eu perguntar se esse usuário pode fazer qualquer coisa, ele vai poder, isso tudo será verdadeiro, porque quando geramos o token inicial, nós não passamos abilities, então ele pode fazer qualquer coisa. Aí é que está, nós, por padrão, temos essa hability, ['*'], essa habilidade, essa permissão, que é fazer tudo.
+
+Na area em questão , exemplo método *`destroy`* podemos utilizar authenticable, *`(int $series, Authenticable $user)`* quer dizer alguém que seja autenticável.
+
+Então eu posso verificar se o token desse usuário pode fazer algo, *`dd($user->tokenCan())`*. 
+Por exemplo, *`(ability: 'series:delete')`*. 
+
+Não é comum fazer logout numa API, porque não estamos armazenando sessão. Mas, sempre que eu fizer um login, eu posso fazer logout desse mesmo usuário, ou seja, eu posso revogar qualquer outro token que ele tenha. Eu posso fazer *`$user->tokens()->delete()`*. Ou seja, eu vou acabar removendo todos os tokens que esse usuário tenha.
+
+Em APIs nós não utilizamos o conceito de sessão no servidor, porém um cliente pode armazenar o token e manter o usuário logado. Se o usuário fizer login de novo, é feita a revogação de todos os tokens, ou seja, todas as aplicações onde o usuário estava logado antes serão deslogadas. Isso permite uma segurança a mais, mas é uma implementação opcional.
